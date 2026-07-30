@@ -1,0 +1,22 @@
+name: CI
+
+# Builds, tests and packages a downloadable test build. Pushes to "develop" are
+# covered by the nightly workflow instead, which additionally publishes a
+# snapshot release. Links to pull request builds are posted by comment_build.yml.
+on:
+  pull_request:
+  push:
+    branches-ignore:
+      - develop
+  workflow_dispatch:
+
+# A newer push to the same branch makes an in-flight run obsolete.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    uses: ./.github/workflows/job_build.yml
+    with:
+      retention_days: 15
