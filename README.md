@@ -13,6 +13,9 @@ The Tomb Editor is part of a wider set of tools:
 - SoundTool : A tool to manage sound catalogs.
 - TombIDE : A development environment tool for level setup, scripting and deploying ready game packages.
 
+## Development builds
+Snapshots of the current `develop` branch are published automatically as a [development snapshot](../../releases/tag/nightly) pre-release, and every pull request gets a test build linked in its own comments. Both are overlays intended for testers and bug reports: install a [stable release](https://github.com/TombEngine/TombEditorReleases/releases) first, then unpack a snapshot over it. Stable installers remain the only supported way to install Tomb Editor.
+
 ## Disclaimer
 This is a community project which is not affiliated with Core Design, Eidos Interactive, or Embracer Group AB. Tomb Raider is a registered trademark of Embracer Group AB. Tomb Editor is not be sold. The code is open-source to encourage contributions and to be used for study purposes. We are not responsible for illegal uses of this source code. This source code is released as-is and continues to be maintained by non-paid contributors in their free time.
 
