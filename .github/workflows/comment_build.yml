@@ -59,9 +59,16 @@ jobs:
             const expiry = a => new Date(a.expires_at).toISOString().slice(0, 10);
             const size = a => `${Math.round(a.size_in_bytes / 1048576)} MB`;
 
+            // Two links per build, because neither is sufficient alone: GitHub
+            // refuses artifact downloads to anonymous visitors, and nightly.link,
+            // which proxies them, is a single third party that does go down.
+            const suite = context.payload.workflow_run.check_suite_id;
+            const direct = a => `https://github.com/${owner}/${repo}/suites/${suite}/artifacts/${a.id}`;
+            const mirror = a => `https://nightly.link/${owner}/${repo}/suites/${suite}/artifacts/${a.id}`;
+
             const links = builds
                 .sort((a, b) => a.name.localeCompare(b.name))
-                .map(a => `* [${a.name}.zip](https://nightly.link/${owner}/${repo}/actions/artifacts/${a.id}.zip) - ${size(a)}, expires ${expiry(a)}`)
+                .map(a => `* **${a.name}.zip** - ${size(a)}, expires ${expiry(a)}: [download](${direct(a)}) (needs a GitHub account) or [mirror](${mirror(a)}) (no account needed)`)
                 .join('\n');
 
             // Paragraphs are single lines on purpose: GitHub renders a lone
